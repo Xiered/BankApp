@@ -9,7 +9,24 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Header()
+        VStack {
+            Header()
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 0){
+                    ForEach(CardModel.colors ) { colors in
+                        VStack {
+                            GeometryReader { geo in
+                                CardView(colors: colors.colors)
+                                    .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).minX) / 15), axis: (x: 0, y: 1, z: 0))
+                            }
+                            .frame(width: 250, height: 250 )
+                        }
+                    }
+                }
+            }
+            Spacer()
+        }
     }
     
     @ViewBuilder
